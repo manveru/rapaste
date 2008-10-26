@@ -54,8 +54,6 @@ class PasteController < Ramaze::Controller
         :text    => text
       )
 
-      pp paste
-
       session[:pastes] ||= Set.new
       session[:pastes] << paste.id
 
