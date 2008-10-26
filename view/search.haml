@@ -1,0 +1,20 @@
+= @pager.navigation
+
+.list_head= "Results for '#{h(@needle)}' total: #@total"
+
+.list
+  - @pager.each do |paste|
+    .item
+      %a.item_meta{:href => paste.link(:href)}
+        %span.paste_id= paste.id
+        %span.syntax= paste.syntax_description
+        &mdash;
+        %span.created= "created #{time_diff paste.created} ago"
+      %pre.fragment~ paste.text_fragment
+      %a.more{:href => paste.link(:href)} show
+  - if @pastes.empty?
+    .list_empty
+      No pastes available yet, go on and
+      %a{:href => '/'} Add one
+
+= @pager.navigation

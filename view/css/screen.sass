@@ -1,0 +1,165 @@
+body
+  :background #fff
+
+*
+  :padding 0
+  :margin 0
+
+a
+  :color #33f
+a:visited
+  :color #66f
+a:hover, a:active, a:focus
+  :color #00f
+
+// Layout
+
+#head
+  :background #339
+  :height 2.2em
+  :color #fa3
+  #logo
+    :float left
+    :padding-left 0.2em
+    :padding-right 1em
+    :margin-right 0em
+    :font-size 2em
+    a
+      :background transparent
+      :padding 0
+      :margin 0
+      :line-height 1em
+  a
+    :color #fa3
+    :text-decoration none
+    :background #117
+    :padding 0.2em
+    :margin 0.2em
+    :line-height 2em
+  a:visited
+    :color #e92
+  a:hover, a:active, a:focus
+    :color #fa3
+    :background #228
+    :text-decoration underline
+
+  #search
+    :float right
+    :line-height 2em
+    :font-size 0.9em
+    input
+      :font-size 0.9em
+      :background #117
+      :color #fa3
+      :border 1px solid #000
+
+.pager
+  :clear both
+  :text-align center
+  a.first
+  a.previous
+  a
+  a.current
+    :color #f00
+  span.next
+  span.last
+  .grey
+    :color #aaa
+
+#footer
+  :text-align center
+  :clear both
+  :font-size 0.8em
+  :margin-top 1em
+  :background #aaf
+  :color #fff
+  a
+    :color #fff
+    :font-weight bold
+    :text-decoration none
+
+// New
+
+#new_paste
+  :margin 0em
+  :padding 1em
+  select
+    :clear both
+  textarea
+    :border 1px solid black
+    :clear both
+    :width 100%
+    :height 35em
+
+// View
+
+#paste_menu
+  :clear both
+  :background #339
+  :margin-bottom 0.5em
+  :text-align center
+  a
+    :color #fa3
+    :text-decoration none
+    :background #117
+    :padding 0.2em
+
+#paste_date
+  :text-align center
+  :padding-right 0.5em
+
+#paste_body
+  :clear both
+  :padding 0.5em
+  pre
+    :padding 0.5em
+
+// List
+
+.list_head
+  :color #f00
+  :clear both
+.list
+  .item:hover
+    .item_meta, .more
+      :background #339
+  .item
+    :float left
+    :width 30%
+    :overflow hidden
+    :margin 1%
+    .item_meta, .more
+      :background #117
+      :display block
+    a
+      :color #fa3
+      :text-decoration none
+    .item_meta
+      :font-size 0.9em
+      .paste_id
+        :display none
+      .syntax
+        // :background #000
+      .created
+        // :background #117
+    .more
+      :text-align center
+    .fragment
+      :text-align left
+      :overflow hidden
+      :height 13em
+  .list_empty
+
+pre
+  :background #f8f8f8
+  :font-family "Courier New", "Terminal", monospace
+  :font-size 10pt
+
+.foobar
+  :text-align left
+  :margin 0.25em
+  :border 1px solid #00f
+  :float left
+  :width 45%
+  :overflow hidden
+  :background #fff

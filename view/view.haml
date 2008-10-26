@@ -1,0 +1,12 @@
+#paste
+  #paste_menu
+    = @paste.link(:fork)
+    = @paste.link(:html)
+    = @paste.link(:txt)
+    = @paste.link(:rb)
+    - if session[:pastes] and session[:pastes].include?(@paste.id)
+      = @paste.link(:delete)
+  #paste_date
+    Created:
+    = @paste.created.utc
+  %pre#paste_body~ @paste.text_full

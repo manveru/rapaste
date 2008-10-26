@@ -1,0 +1,13 @@
+%form#new_paste{:action => '/save', :method => 'POST', :name => 'new_paste'}
+  %textarea{:name => :text}~ @paste.text
+  - if @fork
+    %input{:type => :hidden, :value => @fork, :name => :fork}
+  %select{:name => :syntax}
+    - @syntaxes.each do |value, name|
+      - if value == @paste.syntax
+        %option{:value => value, :selected => :selected}= name || value
+      - else
+        %option{:value => value}= name || value
+  Private:
+  %input{:type => :checkbox, :name => :private}
+  %input{:type => :submit, :value => 'Paste'}

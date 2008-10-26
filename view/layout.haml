@@ -1,0 +1,30 @@
+!!! XML
+!!! 
+
+%html
+  %head
+    %title= $rapaste[:title]
+    %link{:href => '/css/screen.css', :rel => 'stylesheet', :type => 'text/css'}
+    - if $rapaste[:engine] == :uv
+      %link{:href => "/css/#{theme}.css", :rel => 'stylesheet', :type => 'text/css'}
+    - else
+      %link{:href => "/coderay.css", :rel => 'stylesheet', :type => 'text/css'}
+  %body
+    #head
+      #logo
+        %a{:href => '/'}= $rapaste[:title]
+      #menu
+        %form{:id => :search, :action => '/search', :method => 'GET'}
+          Search:
+          %input{:type => :text, :name => :substring}
+        %a{:href => '/'} New
+        %a{:href => '/list'} List
+    #content= @content
+    #footer
+      &copy;
+      ~ [2008, Date.today.year].uniq.join('-')
+      by manveru
+      \|
+      %a{:href => 'http://ramaze.net'} Powered by Ramaze
+      \|
+      %a{:href => 'http://github.com/manveru/rapaste'} View Source
