@@ -1,0 +1,40 @@
+= @pager.navigation
+
+.flashbox= flashbox
+
+= "There are #@count unapproved pastes"
+
+%form{:method => :POST, :action => Rs(:mark)}
+  %table{:style => 'margin-left: auto; margin-right: auto;'}
+    %tr
+      %td Spam
+      %td Ham
+
+      / %td Category
+      / %td [Spam | Ham | Delta]
+
+      %td Paste
+    - @pager.each do |paste|
+      - rating, classification = BAYES.classify_info(paste.text)
+      - is_spam = rating == 'spam'
+      - color = is_spam ? '#faa' : '#afa'
+      - spam_name, ham_name = "spam[#{paste.id}]", "ham[#{paste.id}]"
+      %tr{:style => "background: #{color};"}
+        %td{:style => 'text-align: center;'}
+          - if is_spam
+            %input{:type => :radio, :name => paste.id, :value => :spam, :checked => :checked}
+          - else
+            %input{:type => :radio, :name => paste.id, :value => :spam}
+        %td{:style => 'text-align: center;'}
+          - if is_spam
+            %input{:type => :radio, :name => paste.id, :value => :ham}
+          - else
+            %input{:style => 'display: block;', :type => :radio, :name => paste.id, :value => :ham, :checked => :checked}
+        / %td= rating
+        / - spammy, hammy = classification[:spam].to_f, classification[:ham].to_f
+        / %td= "%.2f | %.2f | %.2f" % [spammy, hammy, (spammy - hammy).abs]
+        %td{:style => 'width: 92%'}
+          %pre{:style => 'width: 80em; overflow: auto;'}= paste.text_fragment
+  %input{:type => :submit, :value => 'Categorize this list'}
+
+= @pager.navigation

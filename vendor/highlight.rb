@@ -55,6 +55,8 @@ class Highlight
       args = options.values_at(:output, :syntax, :line_numbers, :style, :headers)
 
       Uv.parse(text, *args)
+    rescue => ex
+      "<pre>#{Rack::Utils.escape(text)}</pre>"
     end
 
     def translate(options)
@@ -109,6 +111,8 @@ class Highlight
       options = translate(DEFAULT.merge(options))
       tokens = CodeRay.scan(text, options[:syntax])
       tokens.html(options)
+    rescue => ex
+      "<pre>#{Rack::Utils.escape(text)}</pre>"
     end
 
     def translate(options)

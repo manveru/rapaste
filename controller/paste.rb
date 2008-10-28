@@ -46,12 +46,13 @@ class PasteController < Ramaze::Controller
 
     if request.post? and text and $rapaste[:syntaxes][syntax]
       paste = Paste.create(
-        :created => Time.now,
-        :digest  => Digest::SHA1.hexdigest(text),
-        :ip      => request.ip,
-        :private => private,
-        :syntax  => syntax,
-        :text    => text
+        :category => BAYES.classify(text)
+        :created  => Time.now,
+        :private  => private,
+        :syntax   => syntax,
+        :digest   => Digest::SHA1.hexdigest(text),
+        :text     => text,
+        :ip       => request.ip,
       )
 
       session[:pastes] ||= Set.new
@@ -70,6 +71,7 @@ class PasteController < Ramaze::Controller
     redirect Rs(:fork => id, :digest => digest)
   end
 
+  # TODO: implement this using the session[:pastes]
   def delete(id, digest = nil)
     redirect_referrer unless request.post?
     paste = paste_for(id, digest)
@@ -78,13 +80,13 @@ class PasteController < Ramaze::Controller
   def search
     return unless @needle = request['substring'] and not @needle.empty?
     needle = "%#{@needle}%"
-    @pastes = Paste.filter(:text.like(needle) & ({:archive => true, :private => false} | {:ip => request.ip}))
+    @pastes = Paste.filter(:text.like(needle) & ({:archive => true, :private => false, :category => 'ham'} | {:ip => request.ip}))
     @total = @pastes.count
     @pager = paginate(@pastes, :limit => $rapaste[:pager])
   end
 
   def paste_list
-    Paste.order(:id.desc).filter({:archive => true, :private => false} | {:ip => request.ip})
+    Paste.order(:id.desc).filter({:archive => true, :private => false, :category => 'ham'} | {:ip => request.ip})
   end
 
   # TODO: This could be improved.
@@ -97,7 +99,7 @@ class PasteController < Ramaze::Controller
       return paste if paste.ip == request.ip
       return paste if paste.archive
       paste.archive = true
-      paste.save
+      paste.categorize!
       return paste
     end
 
