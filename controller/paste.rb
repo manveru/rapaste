@@ -46,13 +46,13 @@ class PasteController < Ramaze::Controller
 
     if request.post? and text and $rapaste[:syntaxes][syntax]
       paste = Paste.create(
-        :category => BAYES.classify(text)
+        :category => BAYES.classify(text),
         :created  => Time.now,
         :private  => private,
         :syntax   => syntax,
         :digest   => Digest::SHA1.hexdigest(text),
         :text     => text,
-        :ip       => request.ip,
+        :ip       => request.ip
       )
 
       session[:pastes] ||= Set.new
