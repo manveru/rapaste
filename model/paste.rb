@@ -39,8 +39,7 @@ class Paste < Sequel::Model
   end
 
   def syntax_description
-    p $rapaste_syntaxes
-    p syntax => $rapaste_syntaxes[syntax]
+    $rapaste_syntaxes[syntax]
   end
 
   include Ramaze::Helper::Link
