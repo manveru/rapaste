@@ -82,7 +82,7 @@ class PasteController < Ramaze::Controller
   # Utility methods
 
   def paste_list
-    Paste.order(:id.desc).filter({:archive => true, :private => false, :category => 'ham'} | {:ip => request.ip})
+    Paste.order(:id.desc).filter(({:archive => true, :private => false, :category => 'ham'} & ({:approved => true} | {:approved => nil})) | {:ip => request.ip})
   end
 
   # TODO: This could be improved.
