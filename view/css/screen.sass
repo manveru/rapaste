@@ -1,22 +1,21 @@
 body
-  :background #fff
+  :background #000
 
 *
   :padding 0
   :margin 0
 
 a
-  :color #33f
+  :color #fa3
 a:visited
-  :color #66f
+  :color #fa3
 a:hover, a:active, a:focus
-  :color #00f
 
 // Layout
 
 #head
   :background #339
-  :height 2.2em
+  :height 2.4em
   :color #fa3
   #logo
     :float left
@@ -30,16 +29,13 @@ a:hover, a:active, a:focus
       :margin 0
       :line-height 1em
   a
-    :color #fa3
     :text-decoration none
     :background #117
     :padding 0.2em
     :margin 0.2em
-    :line-height 2em
-  a:visited
-    :color #e92
+    :line-height 2.2em
+    :font-size 1.2em
   a:hover, a:active, a:focus
-    :color #fa3
     :background #228
     :text-decoration underline
 
@@ -52,6 +48,36 @@ a:hover, a:active, a:focus
       :background #117
       :color #fa3
       :border 1px solid #000
+
+#content
+  :color #fff
+
+#footer
+  :text-align center
+  :clear both
+  :font-size 0.8em
+  :margin-top 1em
+  :color #fff
+  a
+    // :color #fff
+    :font-weight bold
+    :text-decoration none
+
+.sub_menu
+  :clear both
+  :margin-bottom 0.5em
+  :text-align center
+  a
+    :color #fa3
+    :text-decoration none
+    :background #117
+    :padding 0.2em
+    :font-size 1.1em
+
+.warning
+  :color #f00
+  :padding 0.5em
+  :text-align center
 
 .pager
   :clear both
@@ -66,18 +92,6 @@ a:hover, a:active, a:focus
   .grey
     :color #aaa
 
-#footer
-  :text-align center
-  :clear both
-  :font-size 0.8em
-  :margin-top 1em
-  :background #aaf
-  :color #fff
-  a
-    :color #fff
-    :font-weight bold
-    :text-decoration none
-
 // New
 
 #new_paste
@@ -90,25 +104,15 @@ a:hover, a:active, a:focus
     :clear both
     :width 100%
     :height 35em
+    :margin-bottom 1em
 
 // View
 
-#paste_menu
-  :clear both
-  :background #339
-  :margin-bottom 0.5em
-  :text-align center
-  a
-    :color #fa3
-    :text-decoration none
-    :background #117
-    :padding 0.2em
-
-#paste_date
+.paste_date
   :text-align center
   :padding-right 0.5em
 
-#paste_body
+.paste_body
   :clear both
   :padding 0.5em
   pre
@@ -125,7 +129,7 @@ a:hover, a:active, a:focus
       :background #339
   .item
     :float left
-    :width 30%
+    :width 31%
     :overflow hidden
     :margin 1%
     .item_meta, .more
@@ -155,11 +159,35 @@ pre
   :font-family "Courier New", "Terminal", monospace
   :font-size 10pt
 
-.foobar
-  :text-align left
-  :margin 0.25em
-  :border 1px solid #00f
-  :float left
-  :width 45%
-  :overflow hidden
-  :background #fff
+.login
+  :margin-left auto
+  :margin-right auto
+  :text-align center
+  :min-height 30em
+  :width 33em
+  :font-family "Times New Roman"
+  form
+    :text-align center
+    fieldset
+      :border 1px solid #eee
+      :background #fff
+      legend
+        :font-size 1.5em
+      label
+      input
+        :font-family "Times New Roman"
+        :font-size 1.5em
+        :width 80%
+        :background #fafafa
+        :border 2px solid #eee
+        :margin 0.2em
+        :padding 0.2em
+        :color #000
+        :text-align center
+      input.submit
+        :text-align center
+        // :background #111
+        // :color #fff
+        :margin 1em
+        :border 1px outset #333
+        :width 40%

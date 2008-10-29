@@ -19,6 +19,8 @@
           %input{:type => :text, :name => :substring}
         %a{:href => '/'} New
         %a{:href => '/list'} List
+        %a{:href => R(AccountController, :login)} Login
+      #flash= flashbox
     #content= @content
     #footer
       &copy;

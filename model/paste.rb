@@ -15,6 +15,21 @@ class Paste < Sequel::Model
     boolean :approved                    # should be listed and ain't spam
   end
 
+  validations.clear
+  validates do
+    presence_of :text, :syntax, :ip
+    format_of :text, :with => /\A.*\S+.*\Z/m, :message => 'is empty'
+    format_of :syntax, :with => /\A.*\S+.*\Z/m, :message => 'is empty'
+  end
+
+  hooks.clear
+  before_create{
+    self.created  = Time.now
+    self.digest   = self.hashify
+    self.category = self.categorize
+  }
+#   after_create{}
+
   def text_fragment
     Highlight.new.fragment(self)
   end
@@ -24,7 +39,8 @@ class Paste < Sequel::Model
   end
 
   def syntax_description
-    $rapaste[:syntaxes][syntax]
+    p $rapaste_syntaxes
+    p syntax => $rapaste_syntaxes[syntax]
   end
 
   include Ramaze::Helper::Link
@@ -44,6 +60,12 @@ class Paste < Sequel::Model
       R(PasteController, *ident)
     end
   end
+
+  def hashify
+    Digest::SHA1.hexdigest(text)
+  end
+
+  # Interaction with Bayesian filter
 
   def classify
     BAYES.classify(text)
@@ -66,8 +88,12 @@ class Paste < Sequel::Model
   end
 
   def categorize!
-    self.category = BAYES.classify(text).to_s
+    categorize
     save
+  end
+
+  def categorize
+    self.category = BAYES.classify(text).to_s
   end
 
   create_table unless table_exists?

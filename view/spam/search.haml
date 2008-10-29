@@ -2,8 +2,8 @@
 
 .flashbox= flashbox
 
-= "There are #@count unapproved pastes"
-%a{:href => Rs(:list_spammy)} Search for obvious spam (slow)
+= "There are #@count results in inside unapproved pastes."
+%a{:href => Rs(:list_pending)} List all pending
 
 %form{:method => :GET, :action => Rs(:search)}
   Search this list:

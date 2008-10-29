@@ -14,6 +14,7 @@ require 'model/paste'
 require 'controller/css'
 require 'controller/paste'
 require 'controller/spam'
+require 'controller/account'
 
 class Highlight
   def default_options
@@ -23,7 +24,7 @@ class Highlight
 
   mod = EXTEND[$rapaste[:engine]]
   mod.setup(__DIR__)
-  $rapaste[:syntaxes] = mod.syntaxes($rapaste[:priority])
+  $rapaste_syntaxes = mod.syntaxes($rapaste[:priority])
 end
 
 # The Bayes database contains information about the ham and spam rating of

@@ -11,8 +11,9 @@ class PasteController < Ramaze::Controller
   engine :Haml
   layout :layout
 
+  # Creating new paste
   def index
-    @syntaxes = $rapaste[:syntaxes]
+    @syntaxes = $rapaste_syntaxes
 
     if @fork = request[:fork]
       @paste = paste_for(@fork, digest = nil, redirect = false)
@@ -21,11 +22,38 @@ class PasteController < Ramaze::Controller
     @paste ||= Paste.new
   end
 
+  # TODO: choose a faster hashing method?
+  def save
+    syntax, text, private = request[:syntax, :text, :private]
+    private = !!private # force to boolean for sequel
+
+    if request.post? and text and $rapaste_syntaxes[syntax]
+      paste = Paste.create(:text => text, :syntax => syntax,
+        :private => private, :ip => request.ip)
+
+      redirect paste.link(:href)
+    end
+
+    redirect_referrer
+  end
+
+  # Listing pastes
+
   def list
     @pastes = paste_list
     @pager = paginate(@pastes, :limit => $rapaste[:pager])
-    @total = @pastes.count
+    @title = "Listing #{@pager.count} of #{@pastes.count} pastes"
   end
+
+  def search
+    return unless @needle = request['substring'] and not @needle.empty?
+    @pastes = paste_list.filter(:text.like("%#{@needle}%"))
+    limit = $rapaste[:pager]
+    @pager = paginate(@pastes, :limit => limit)
+    @title = "Listing #{@pager.count} of #{@pastes.count} results for '#{h(@needle)}'"
+  end
+
+  # Operations on single paste
 
   def view(id, digest = nil)
     @paste, @digest = paste_for(id, digest)
@@ -39,51 +67,19 @@ class PasteController < Ramaze::Controller
     respond paste_for(id, digest).text, 200, 'Content-Type' => 'text/html'
   end
 
-  # TODO: choose a faster hashing method?
-  def save
-    syntax, text, private = request[:syntax, :text, :private]
-    private = !!private # force to boolean for sequel
-
-    if request.post? and text and $rapaste[:syntaxes][syntax]
-      paste = Paste.create(
-        :category => BAYES.classify(text),
-        :created  => Time.now,
-        :private  => private,
-        :syntax   => syntax,
-        :digest   => Digest::SHA1.hexdigest(text),
-        :text     => text,
-        :ip       => request.ip
-      )
-
-      session[:pastes] ||= Set.new
-      session[:pastes] << paste.id
-
-      redirect paste.link(:href)
-    end
-
-    redirect_referrer
-  end
-
-
   # TODO: the behaviour of forking a private paste isn't implemented yet,
   #       suggestions welcome
   def fork(id, digest = nil)
     redirect Rs(:fork => id, :digest => digest)
   end
 
-  # TODO: implement this using the session[:pastes]
+  # TODO: implement this using something like session[:pastes]
   def delete(id, digest = nil)
     redirect_referrer unless request.post?
     paste = paste_for(id, digest)
   end
 
-  def search
-    return unless @needle = request['substring'] and not @needle.empty?
-    needle = "%#{@needle}%"
-    @pastes = Paste.filter(:text.like(needle) & ({:archive => true, :private => false, :category => 'ham'} | {:ip => request.ip}))
-    @total = @pastes.count
-    @pager = paginate(@pastes, :limit => $rapaste[:pager])
-  end
+  # Utility methods
 
   def paste_list
     Paste.order(:id.desc).filter({:archive => true, :private => false, :category => 'ham'} | {:ip => request.ip})

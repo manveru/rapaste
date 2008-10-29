@@ -1,0 +1,7 @@
+.login
+  %form{:method => :POST, :action => Rs(:login)}
+    %fieldset
+      %legend= "#{$rapaste[:title]} Login"
+      %label{:for => :url} Identity URL:
+      %input{:type => :text, :name => :url, :id => :url, :value => request[:url]}
+      %input.submit{:type => :submit, :value => 'Login'}

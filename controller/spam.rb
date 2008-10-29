@@ -4,15 +4,13 @@ class SpamController < Ramaze::Controller
   engine :Haml
   layout '/layout'
 
-  def list_pending
-    @pastes = Paste.filter({:private => false, :approved => nil} & ({:category => 'spam'} | {:category => nil}))
-    @pager  = paginate(@pastes, :limit => $rapaste[:pager])
-    @count  = @pastes.count
+  before_all do
+    redirect_referrer unless session[:openid]
   end
 
-  def list_spammy
-    @pastes = Paste.filter(:private => false, :spammy => true)
-    @pager  = paginate(@pastes, :limit => $rapaste[:pager])
+  def list_pending
+    @pastes = Paste.filter({:private => false, :approved => nil} & ({:category => 'spam'} | {:category => nil}))
+    @pager  = paginate(@pastes, :limit => ($rapaste[:pager] * 3))
     @count  = @pastes.count
   end
 
@@ -52,5 +50,25 @@ class SpamController < Ramaze::Controller
     end
 
     redirect_referrer
+  end
+
+  def search
+    query = request[:q]
+
+    @pastes = Paste.filter({:private => false, :approved => nil} & ({:category => 'spam'} | {:category => nil}) & :text.like("%#{query}%"))
+    @pager  = paginate(@pastes, :limit => ($rapaste[:pager] * 3))
+    @count  = @pastes.count
+  end
+
+  def list_spammy
+    query = request[:q]
+
+    suspect = Paste.filter({:private => false, :approved => nil} & {:category => nil})
+    spammy = []
+    suspect.each{|paste| paste.categorize! }
+
+    @pastes = Paste.filter({:private => false, :approved => nil} & ({:category => 'spam'}))
+    @pager  = paginate(@pastes, :limit => ($rapaste[:pager] * 3))
+    @count  = @pastes.count
   end
 end
