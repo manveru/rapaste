@@ -1,5 +1,5 @@
 !!! XML
-!!! 
+!!!
 
 %html
   %head
@@ -19,7 +19,10 @@
           %input{:type => :text, :name => :substring}
         %a{:href => '/'} New
         %a{:href => '/list'} List
-        %a{:href => R(AccountController, :login)} Login
+        - if session[:user]
+          %a{:href => R(AccountController, :logout)} Logout
+        - else
+          %a{:href => R(AccountController, :login)} Login
       #flash= flashbox
     #content= @content
     #footer

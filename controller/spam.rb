@@ -5,7 +5,7 @@ class SpamController < Ramaze::Controller
   layout '/layout'
 
   before_all do
-    redirect_referrer unless session[:openid]
+    redirect_referrer unless $rapaste[:users].include?(session[:openid_identity])
   end
 
   def list_pending

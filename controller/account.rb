@@ -10,15 +10,16 @@ class AccountController < Ramaze::Controller
     end
 
     return unless request.post?
+    @oid = session[:openid_identity]
+    @url = request[:url] || @oid
 
-    openid = request[:openid].to_s.strip
-
-    if $rapaste[:users].include?(openid)
-      session[:openid] = openid
-      redirect Rs(:after_login)
+    if @oid
+      openid_finalize
+    elsif request.post?
+      openid_begin
+    else
+      flash[:bad] = flash[:error] || "Bleep"
     end
-
-    redirect_referrer
   end
 
   # This method is simply to check whether we really did login and the browser
@@ -27,9 +28,21 @@ class AccountController < Ramaze::Controller
   # site.
   def after_login
     if logged_in?
-      answer R(ProfileController, user.login)
+      answer R(SpamController, :list_pending)
     else
       redirect Rs(:login, :fail => :session)
+    end
+  end
+
+  private
+
+  def openid_finalize
+    if $rapaste[:users].include?(@oid)
+      session[:user] = @oid
+      flash[:good] = flash[:success]
+      redirect R(SpamController, :list_pending)
+    else
+      flash[:bad] = "None of our users belongs to this OpenID"
     end
   end
 end
