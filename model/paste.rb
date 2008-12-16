@@ -22,13 +22,11 @@ class Paste < Sequel::Model
     format_of :syntax, :with => /\A.*\S+.*\Z/m, :message => 'is empty'
   end
 
-  hooks.clear
-  before_create{
+  before_create(:prepare){
     self.created  = Time.now
     self.digest   = self.hashify
     self.category = self.categorize
   }
-#   after_create{}
 
   def text_fragment
     Highlight.new.fragment(self)
