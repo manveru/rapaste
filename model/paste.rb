@@ -93,5 +93,11 @@ class Paste < Sequel::Model
     self.category = BAYES.classify(text).to_s
   end
 
-  create_table unless table_exists?
+  begin
+    create_table
+  rescue Sequel::DatabaseError => e
+    if e.message !~ /table.*already exists/
+      raise e
+    end
+  end
 end
