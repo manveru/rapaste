@@ -30,7 +30,7 @@ end
 # The Bayes database contains information about the ham and spam rating of
 # certain words.
 # If you would like to reset it, just remove the db/bayes.marshal file.
-BAYES = Bayes.new(__DIR__/'db/bayes.marshal')
+BAYES = Bayes.new( File.join( __DIR__, 'db/bayes.marshal' ) )
 
 # Initial seeding of the bayes filter, setting up categories and a couple of
 # common ratings.
@@ -38,8 +38,8 @@ BAYES = Bayes.new(__DIR__/'db/bayes.marshal')
 # any text.
 # But you should separate words in some way (whitespace, commas, numbers...)
 if BAYES.categories.empty?
-  BAYES.train(:spam, File.read(__DIR__/'db/spam.txt'))
-  BAYES.train(:ham,  File.read(__DIR__/'db/ham.txt'))
+  BAYES.train(:spam, File.read( File.join( __DIR__, 'db/spam.txt' ) ))
+  BAYES.train(:ham,  File.read( File.join( __DIR__, 'db/ham.txt' ) ))
 end
 
 Ramaze.start $rapaste[:ramaze]

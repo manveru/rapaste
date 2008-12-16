@@ -40,4 +40,4 @@ $rapaste = {
   }
 }
 
-DB = Sequel.sqlite(__DIR__/'db/rapaste.db') #, :logger => Ramaze::Log)
+DB = Sequel.sqlite( File.join( __DIR__, 'db/rapaste.db' ) ) #, :logger => Ramaze::Log)
