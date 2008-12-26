@@ -5,13 +5,14 @@
 .list
   - @pager.each do |paste|
     .item
+      %pre.fragment~ paste.text_fragment
       %a.item_meta{:href => paste.link(:href)}
         %span.paste_id= paste.id
         %span.syntax= paste.syntax_description
-        &mdash;
+        ,
         %span.created= "created #{time_diff paste.created} ago"
-      %pre.fragment~ paste.text_fragment
-      %a.more{:href => paste.link(:href)} show
+      %a.prev{:href => paste.link(:href)}
+        Preview
   - if @pastes.empty?
     .list_empty
       No pastes available yet, go on and

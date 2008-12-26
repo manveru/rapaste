@@ -10,26 +10,31 @@
     - else
       %link{:href => "/coderay.css", :rel => 'stylesheet', :type => 'text/css'}
   %body
-    #head
-      #logo
-        %a{:href => '/'}= $rapaste[:title]
-      #menu
-        %form{:id => :search, :action => '/search', :method => 'GET'}
-          Search:
-          %input{:type => :text, :name => :substring}
-        %a{:href => '/'} New
-        %a{:href => '/list'} List
-        - if session[:user]
-          %a{:href => R(AccountController, :logout)} Logout
-        - else
-          %a{:href => R(AccountController, :login)} Login
-      #flash= flashbox
-    #content= @content
-    #footer
-      &copy;
-      ~ [2008, Date.today.year].uniq.join('-')
-      by manveru
-      \|
-      %a{:href => 'http://ramaze.net'} Powered by Ramaze
-      \|
-      %a{:href => 'http://github.com/manveru/rapaste'} View Source
+    #wrapper
+      #head
+        #logo
+          %h1 RaPaste
+          %a{:href => '/'}
+            %img{:src => "/images/logo.png"}
+        #srch 
+          %form{:id => :search, :action => '/search', :method => 'GET'}           
+            %input{:type => :text, :name => :substring, :value => 'Search'}
+        #menu
+          %a{:href => '/'} New
+          %a{:href => '/list'} List
+          - if session[:user]
+            %a{:href => R(AccountController, :logout)} Logout
+          - else
+            %a{:href => R(AccountController, :login)} Login
+         
+        #flash= flashbox
+      #content= @content
+      #footer
+        &copy;
+        ~ [2008, Date.today.year].uniq.join('-')
+        by manveru
+        \|
+        Powered by  
+        %a{:href => 'http://ramaze.net'} Ramaze
+        \|
+        %a{:href => 'http://github.com/manveru/rapaste'} View Source

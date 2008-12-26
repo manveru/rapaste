@@ -1,76 +1,254 @@
-body
-  :background #000
+// Reset
 
-*
-  :padding 0
+html
   :margin 0
+  :padding 0
+  :border 0
+  :outline 0
+  :font-size 100%
+  :vertical-align baseline
+  :background transparent
+
+body
+  :margin 0
+  :padding 0
+  :border 0
+  :outline 0
+  :font-size 100%
+  :vertical-align baseline
+  :background transparent
+  :line-height 1
+
+div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p
+  :margin 0
+  :padding 0
+  :border 0
+  :outline 0
+  :font-size 100%
+  :vertical-align baseline
+  :background transparent
+
+blockquote
+  :margin 0
+  :padding 0
+  :border 0
+  :outline 0
+  :font-size 100%
+  :vertical-align baseline
+  :background transparent
+  :quotes none
+
+pre, a, abbr, acronym, address, big, cite, code
+  :margin 0
+  :padding 0
+  :border 0
+  :outline 0
+  :font-size 100%
+  :vertical-align baseline
+  :background transparent
+
+del
+  :margin 0
+  :padding 0
+  :border 0
+  :outline 0
+  :font-size 100%
+  :vertical-align baseline
+  :background transparent
+  :text-decoration line-through
+
+dfn, em, font, img
+  :margin 0
+  :padding 0
+  :border 0
+  :outline 0
+  :font-size 100%
+  :vertical-align baseline
+  :background transparent
+
+ins
+  :margin 0
+  :padding 0
+  :border 0
+  :outline 0
+  :font-size 100%
+  :vertical-align baseline
+  :background transparent
+  :text-decoration none
+
+kbd
+  :margin 0
+  :padding 0
+  :border 0
+  :outline 0
+  :font-size 100%
+  :vertical-align baseline
+  :background transparent
+
+q
+  :margin 0
+  :padding 0
+  :border 0
+  :outline 0
+  :font-size 100%
+  :vertical-align baseline
+  :background transparent
+  :quotes none
+
+s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd
+  :margin 0
+  :padding 0
+  :border 0
+  :outline 0
+  :font-size 100%
+  :vertical-align baseline
+  :background transparent
+
+ol, ul
+  :margin 0
+  :padding 0
+  :border 0
+  :outline 0
+  :font-size 100%
+  :vertical-align baseline
+  :background transparent
+  :list-style none
+
+li, fieldset, form, label, legend
+  :margin 0
+  :padding 0
+  :border 0
+  :outline 0
+  :font-size 100%
+  :vertical-align baseline
+  :background transparent
+
+table
+  :margin 0
+  :padding 0
+  :border 0
+  :outline 0
+  :font-size 100%
+  :vertical-align baseline
+  :background transparent
+  :border-collapse collapse
+  :border-spacing 0
+
+caption, tbody, tfoot, thead, tr, th, td
+  :margin 0
+  :padding 0
+  :border 0
+  :outline 0
+  :font-size 100%
+  :vertical-align baseline
+  :background transparent
+
+*:focus
+  :outline 0
+
+// Global 
+
+body
+  :background
+    :image url(/images/body_bg.png)
+    :color #f4f4f4
+    :repeat repeat-x
+    :position top left
 
 a
-  :color #fa3
+  :color #333
 a:visited
-  :color #fa3
+  :color #333
 a:hover, a:active, a:focus
-
+  :color red
 // Layout
+#wrapper 
+  :margin 0px auto
+  :width 85%
+  :min-width 950px
 
 #head
-  :background #339
-  :height 2.4em
-  :color #fa3
+  :position relative
+  :height 87px
+  :width 100%
   #logo
-    :float left
-    :padding-left 0.2em
-    :padding-right 1em
-    :margin-right 0em
-    :font-size 2em
-    a
-      :background transparent
-      :padding 0
-      :margin 0
-      :line-height 1em
-  a
-    :text-decoration none
-    :background #117
-    :padding 0.2em
-    :margin 0.2em
-    :line-height 2.2em
-    :font-size 1.2em
-  a:hover, a:active, a:focus
-    :background #228
-    :text-decoration underline
-
-  #search
+    :position absolute
+    :top 10px
+    h1
+      :font-size 12px
+      :position absolute
+      :left -9999px
+  #srch 
+    :margin-top 20px
     :float right
-    :line-height 2em
-    :font-size 0.9em
+    :width 202px
+    :height 29px
+    :background
+      :image url(/images/search_bg.png)
+      :color transparent
+      :repeat no-repeat
+      :position top left
     input
-      :font-size 0.9em
-      :background #117
-      :color #fa3
-      :border 1px solid #000
+      :padding-top 7px
+      :padding-left 10px
+      :border none
+      :width 188px
+      :background-color transparent
+      :height 29px
+      :font-size 12px
+      :color #444
+  #menu 
+    :position absolute
+    :left 300px
+    :top 30px
+  #menu a
+    :padding-left 26px
+    :display block
+    :text-decoration none
+    :float left
+    :color #3b3b3b
+    :font-size 18px
+    :font-family Helvetica,Jamrul,sans-serif
+    :background
+      :image url(/images/bullets.png)
+      :color transparent
+      :repeat no-repeat
+      :position 14px 7px
+    &:hover
+      :background
+        :image url(/images/bullets.png)
+        :color transparent
+        :repeat no-repeat
+        :position 14px -22px
+      :color #c5121e
+
 
 #content
-  :color #fff
+  :font-family Helvetica,Jamrul,sans-serif
+  :font-size 12px
+  :width 100%
+  textarea 
+    :width 100%
+    :height 35em
+    :margin-bottom 1em
 
 #footer
+  :width 100%
+  :height 30px
   :text-align center
   :clear both
-  :font-size 0.8em
+  :font-size 10px
   :margin-top 1em
-  :color #fff
+  :color #666
   a
-    // :color #fff
-    :font-weight bold
+    :color red
     :text-decoration none
 
 .sub_menu
   :clear both
-  :margin-bottom 0.5em
-  :text-align center
   a
-    :color #fa3
+    :color #333
     :text-decoration none
-    :background #117
     :padding 0.2em
     :font-size 1.1em
 
@@ -96,11 +274,10 @@ a:hover, a:active, a:focus
 
 #new_paste
   :margin 0em
-  :padding 1em
   select
     :clear both
   textarea
-    :border 1px solid black
+    :border 1px solid #c1c1c1
     :clear both
     :width 100%
     :height 35em
@@ -109,7 +286,8 @@ a:hover, a:active, a:focus
 // View
 
 .paste_date
-  :text-align center
+  :text-align right
+  :color #555
   :padding-right 0.5em
 
 .paste_body
@@ -121,41 +299,78 @@ a:hover, a:active, a:focus
 // List
 
 .list_head
-  :color #f00
+  :color #333
+  :padding-left 15px
   :clear both
 .list
   .item:hover
     .item_meta, .more
-      :background #339
+      :background
+        :image url(/images/item_bg2.png)
+        :color transparent
+        :repeat repeat-x
+        :position top left
   .item
     :float left
-    :width 31%
+    :position relative
+    :width 30%
     :overflow hidden
     :margin 1%
+    :border 1px solid #c1c1c1
+    .fragment 
+      :background-color #fff
+      :padding 10px
     .item_meta, .more
-      :background #117
+      :background
+        :image url(/images/item_bg.png)
+        :color transparent
+        :repeat repeat-x
+        :position top left
       :display block
-    a
-      :color #fa3
+      :padding 11px 6px 6px 8px
+      :color #333
+      :font-size 11px
+      :line-height 16px
       :text-decoration none
     .item_meta
-      :font-size 0.9em
       .paste_id
         :display none
       .syntax
+        :padding 1px 0 1px 18px
+        :line-height 15px
+        :background
+          :image url(/images/icons/page_white.png)
+          :color transparent
+          :repeat no-repeat
+          :position top left
         // :background #000
       .created
         // :background #117
+    .prev 
+      :text-decoration none
+      :position absolute
+      :right 0px
+      :bottom 7px
+      :display block
+      :color #333
+      :line-height 16px
+      :padding-left 20px
+      :margin-right 10px
+      :background
+        :image url(/images/preview.png)
+        :color transparent
+        :repeat no-repeat
+        :position top left    
     .more
       :text-align center
     .fragment
       :text-align left
       :overflow hidden
-      :height 13em
+      :height 116px
   .list_empty
 
 pre
-  :background #f8f8f8
+  :background #fff
   :font-family "Courier New", "Terminal", monospace
   :font-size 10pt
 
@@ -169,10 +384,11 @@ pre
   form
     :text-align center
     fieldset
-      :border 1px solid #eee
-      // :background #fff
+      :border 1px solid #ccc
+      :background #eee
       legend
-        :font-size 1.5em
+        :font-size 12px
+        :font-weight bold
       label
       input
         :font-family "Times New Roman"
