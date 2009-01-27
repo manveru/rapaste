@@ -49,12 +49,12 @@ class Paste < Sequel::Model
     case name
     when :fork, :delete
       A(name.to_s.capitalize, :href => R(PasteController, name, *ident))
-    when :html, :txt, :rb
+    when :href
+      R(PasteController, *ident)
+    else
       file = "#{ident * '/'}.#{name}"
       title = "#{id}.#{name}"
       A(title, :href => R(PasteController, file))
-    when :href
-      R(PasteController, *ident)
     end
   end
 
