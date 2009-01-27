@@ -2,6 +2,8 @@ Ramaze::Route[%r!^/(\d+)$!]              = '/view/%d'     # /id             = /v
 Ramaze::Route[%r!^/(\d+)/(\w+)$!]        = '/view/%d/%s'  # /id/digest      = /view/id/digest
 Ramaze::Route[%r!^/(\d+)\.html$!]        = '/html/%d'     # /id.html        = /html/id
 Ramaze::Route[%r!^/(\d+)/(\w+)\.html$!]  = '/html/%d/%s'  # /id/digest.html = /html/id/digest
+Ramaze::Route[%r!^/(\d+)\.svg$!]         = '/svg/%d'      # /id.svg         = /svg/id
+Ramaze::Route[%r!^/(\d+)/(\w+)\.svg$!]   = '/svg/%d/%s'   # /id/digest.svg  = /svg/id/digest
 Ramaze::Route[%r!^/(\d+)\.(\w+)$!]       = '/plain/%d'    # /id.type        = /plain/id
 Ramaze::Route[%r!^/(\d+)/(\w+)\.(\w+)$!] = '/plain/%d/%s' # /id/digest.type = /plain/id/digest
 
@@ -65,6 +67,10 @@ class PasteController < Ramaze::Controller
 
   def html(id, digest = nil)
     respond paste_for(id, digest).text, 200, 'Content-Type' => 'text/html'
+  end
+
+  def svg(id, digest = nil)
+    respond paste_for(id, digest).text, 200, 'Content-Type' => 'image/svg+xml'
   end
 
   # TODO: the behaviour of forking a private paste isn't implemented yet,
