@@ -1,11 +1,18 @@
-Ramaze::Route[%r!^/(\d+)$!]              = '/view/%d'     # /id             = /view/id
-Ramaze::Route[%r!^/(\d+)/(\w+)$!]        = '/view/%d/%s'  # /id/digest      = /view/id/digest
-Ramaze::Route[%r!^/(\d+)\.html$!]        = '/html/%d'     # /id.html        = /html/id
-Ramaze::Route[%r!^/(\d+)/(\w+)\.html$!]  = '/html/%d/%s'  # /id/digest.html = /html/id/digest
-Ramaze::Route[%r!^/(\d+)\.svg$!]         = '/svg/%d'      # /id.svg         = /svg/id
-Ramaze::Route[%r!^/(\d+)/(\w+)\.svg$!]   = '/svg/%d/%s'   # /id/digest.svg  = /svg/id/digest
-Ramaze::Route[%r!^/(\d+)\.(\w+)$!]       = '/plain/%d'    # /id.type        = /plain/id
-Ramaze::Route[%r!^/(\d+)/(\w+)\.(\w+)$!] = '/plain/%d/%s' # /id/digest.type = /plain/id/digest
+Ramaze::Route[%r!^/(\d+)$!]       = '/view/%d'     # /id        = /view/id
+Ramaze::Route[%r!^/(\d+)/(\w+)$!] = '/view/%d/%s'  # /id/digest = /view/id/digest
+
+Ramaze::Route[:custom] = lambda{|path|
+  case path
+  when %r!^/(\d+)\.(html?|svg|mk?d)$!
+    "/#$2/#$1"                              # /id.type        = /type/id
+  when %r!^/(\d+)/(\w+)\.(html?|svg|mk?d)$!
+    "/#$3/#$1/#$2"                          # id/digest.type  = /type/id/digest
+  when %r!^/(\d+)\.(\w+)$!]
+    "/plain/#$1"                            # /id.type        = /plain/id
+  when %r!^/(\d+)/(\w+)\.(\w+)$!]
+    "/plain/#$1/#$2"              # /id/digest.type = /plain/id/digest
+  end
+}
 
 class PasteController < Ramaze::Controller
   map '/'
@@ -68,17 +75,18 @@ class PasteController < Ramaze::Controller
   def html(id, digest = nil)
     respond paste_for(id, digest).text, 200, 'Content-Type' => 'text/html'
   end
+  alias htm html
 
   def svg(id, digest = nil)
     respond paste_for(id, digest).text, 200, 'Content-Type' => 'image/svg+xml'
   end
 
-  def md(id, digest = nil)
+  def mkd(id, digest = nil)
     require 'maruku'
     html = Maruku.new(paste_for(id, digest).text).to_html
     respond(html, 200, 'Content-Type' => 'text/html')
   end
-  alias mkd md
+  alias md mkd
 
   # TODO: the behaviour of forking a private paste isn't implemented yet,
   #       suggestions welcome
