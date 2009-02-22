@@ -4,6 +4,7 @@
   = @paste.link(:txt)
   = @paste.link(:rb)
   = @paste.link(:svg)
+  = @paste.link(:md)
   - if session[:pastes] and session[:pastes].include?(@paste.id)
     = @paste.link(:delete)
 .paste_date

@@ -73,6 +73,12 @@ class PasteController < Ramaze::Controller
     respond paste_for(id, digest).text, 200, 'Content-Type' => 'image/svg+xml'
   end
 
+  def md(id, digest = nil)
+    html = Maruku.new(paste_for(id, digest).text).to_html
+    respond(html, 200, 'Content-Type' => 'text/html')
+  end
+  alias mkd md
+
   # TODO: the behaviour of forking a private paste isn't implemented yet,
   #       suggestions welcome
   def fork(id, digest = nil)
