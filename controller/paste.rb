@@ -7,9 +7,9 @@ Ramaze::Route[:custom] = lambda{|path|
     "/#$2/#$1"                              # /id.type        = /type/id
   when %r!^/(\d+)/(\w+)\.(html?|svg|mk?d)$!
     "/#$3/#$1/#$2"                          # id/digest.type  = /type/id/digest
-  when %r!^/(\d+)\.(\w+)$!]
+  when %r!^/(\d+)\.(\w+)$!
     "/plain/#$1"                            # /id.type        = /plain/id
-  when %r!^/(\d+)/(\w+)\.(\w+)$!]
+  when %r!^/(\d+)/(\w+)\.(\w+)$!
     "/plain/#$1/#$2"              # /id/digest.type = /plain/id/digest
   end
 }
