@@ -1,7 +1,7 @@
 Ramaze::Route[%r!^/(\d+)$!]       = '/view/%d'     # /id        = /view/id
 Ramaze::Route[%r!^/(\d+)/(\w+)$!] = '/view/%d/%s'  # /id/digest = /view/id/digest
 
-Ramaze::Route[:custom] = lambda{|path|
+Ramaze::Route[:custom] = lambda{|path, request|
   case path
   when %r!^/(\d+)\.(html?|svg|mk?d)$!
     "/#$2/#$1"                              # /id.type        = /type/id
