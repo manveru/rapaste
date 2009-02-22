@@ -74,6 +74,7 @@ class PasteController < Ramaze::Controller
   end
 
   def md(id, digest = nil)
+    require 'maruku'
     html = Maruku.new(paste_for(id, digest).text).to_html
     respond(html, 200, 'Content-Type' => 'text/html')
   end
