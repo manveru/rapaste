@@ -91,7 +91,7 @@ class PasteController < Ramaze::Controller
   # TODO: the behaviour of forking a private paste isn't implemented yet,
   #       suggestions welcome
   def fork(id, digest = nil)
-    redirect Rs(:fork => id, :digest => digest)
+    redirect r(:/, :fork => id, :digest => digest)
   end
 
   # TODO: implement this using something like session[:pastes]
@@ -157,6 +157,6 @@ class PasteController < Ramaze::Controller
       :text    => text
     )
 
-    redirect Rs(:list)
+    redirect r(:list)
   end
 end

@@ -23,9 +23,9 @@
           %a{:href => '/'} New
           %a{:href => '/list'} List
           - if session[:user]
-            %a{:href => R(AccountController, :logout)} Logout
+            = AccountController.a('Logout', :logout)
           - else
-            %a{:href => R(AccountController, :login)} Login
+            = AccountController.a('Login', :login)
          
         #flash= flashbox
       #content= @content

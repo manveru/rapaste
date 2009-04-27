@@ -3,13 +3,13 @@
 .flashbox= flashbox
 
 = "There are #@count unapproved pastes"
-%a{:href => Rs(:list_spammy)} Search for obvious spam (slow)
+%a{:href => r(:list_spammy)} Search for obvious spam (slow)
 
-%form{:method => :GET, :action => Rs(:search)}
+%form{:method => :GET, :action => r(:search)}
   Search this list:
   %input{:type => :input, :name => :q}
 
-%form{:method => :POST, :action => Rs(:mark)}
+%form{:method => :POST, :action => r(:mark)}
   %table{:style => 'margin-left: auto; margin-right: auto;'}
     %tr
       %td Spam

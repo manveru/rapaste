@@ -1,7 +1,8 @@
 class AccountController < Ramaze::Controller
   helper :simple_captcha, :identity, :user
   engine :Haml
-  layout '/layout'
+  layout 'layout'
+  map_layouts '/'
 
   def login
     if request[:fail] == 'session'
@@ -28,9 +29,9 @@ class AccountController < Ramaze::Controller
   # site.
   def after_login
     if logged_in?
-      answer R(SpamController, :list_pending)
+      answer SpamController.r(:list_pending)
     else
-      redirect Rs(:login, :fail => :session)
+      redirect r(:login, :fail => :session)
     end
   end
 
@@ -40,7 +41,7 @@ class AccountController < Ramaze::Controller
     if $rapaste[:users].include?(@oid)
       session[:user] = @oid
       flash[:good] = flash[:success]
-      redirect R(SpamController, :list_pending)
+      redirect SpamController.r(:list_pending)
     else
       flash[:bad] = "None of our users belongs to this OpenID"
     end

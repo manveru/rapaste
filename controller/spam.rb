@@ -2,7 +2,8 @@ class SpamController < Ramaze::Controller
   map '/spam'
   helper :paginate, :formatting, :aspect
   engine :Haml
-  layout '/layout'
+  layout 'layout'
+  map_layouts '/'
 
   before_all do
     redirect_referrer unless $rapaste[:users].include?(session[:openid_identity])
@@ -51,7 +52,7 @@ class SpamController < Ramaze::Controller
     session[:undo] << request.params
     session[:undo].shift until session[:undo].size < 10 # keep it reasonable
 
-    flash[:good] = "Categorized this page, #{A('undo?', :href => Rs(:undo))}"
+    flash[:good] = "Categorized this page, #{a('undo?', :undo)}"
 
     redirect_referrer
   end
@@ -64,7 +65,7 @@ class SpamController < Ramaze::Controller
         paste.save
       end
 
-      flash[:good] = "Undo successful, want to #{A('undo further?', :href => Rs(:undo))}"
+      flash[:good] = "Undo successful, want to #{a('undo further?', :undo)}"
     else
       flash[:bad] = "Nothing to undo"
     end

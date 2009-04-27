@@ -44,21 +44,19 @@ class Paste < Sequel::Model
     $rapaste_syntaxes[syntax]
   end
 
-  include Ramaze::Helper::Link
-
   def link(name)
     ident = [id]
     ident << digest if private
 
     case name
     when :fork, :delete
-      A(name.to_s.capitalize, :href => R(PasteController, name, *ident))
+      PasteController.a(name.to_s.capitalize, name, *ident))
     when :href
-      R(PasteController, *ident)
+      PasteController.r(*ident)
     else
       file = "#{ident * '/'}.#{name}"
       title = "#{id}.#{name}"
-      A(title, :href => R(PasteController, file))
+      PasteController.a(title, file)
     end
   end
 
