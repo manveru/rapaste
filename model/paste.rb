@@ -50,7 +50,7 @@ class Paste < Sequel::Model
 
     case name
     when :fork, :delete
-      PasteController.a(name.to_s.capitalize, name, *ident))
+      PasteController.a(name.to_s.capitalize, name, *ident)
     when :href
       PasteController.r(*ident)
     else
