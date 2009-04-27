@@ -42,4 +42,4 @@ if BAYES.categories.empty?
   BAYES.train(:ham,  File.read( File.join( __DIR__, 'db/ham.txt' ) ))
 end
 
-Ramaze.start $rapaste[:ramaze]
+Ramaze.start($rapaste[:ramaze]) if $0 == __FILE__
