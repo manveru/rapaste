@@ -1,6 +1,7 @@
 Sequel::Model.plugin(:schema)
 Sequel::Model.plugin(:validation_class_methods)
 Sequel::Model.plugin(:hook_class_methods)
+require 'sequel/extensions/pagination'
 
 class Paste < Sequel::Model
   set_schema do
